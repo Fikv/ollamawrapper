@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OllamawrapperApplication {
+public class OllamaWrapperApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OllamawrapperApplication.class, args);
+		SpringApplication.run(OllamaWrapperApplication.class, args);
 	}
 
 }

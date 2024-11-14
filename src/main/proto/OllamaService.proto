@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.ollama";
+option java_outer_classname = "OllamaServiceProto";
+
+package ollama;
+
+service OllamaService {
+    rpc getData (OllamaRequest) returns (OllamaResponse);
+    rpc postData (OllamaRequest) returns (OllamaResponse);
+}
+
+message OllamaRequest {
+    string query = 1;
+}
+
+message OllamaResponse {
+    string result = 1;
+}
