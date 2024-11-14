@@ -14,13 +14,11 @@ public class OllamaController {
 
 	@GetMapping("/data")
 	public String getData(@RequestParam String query) {
-//		return ollamaGrpcClient.getData(query);
-		return null;
+		return ollamaGrpcClient.getData(query);
 	}
 
 	@PostMapping("/data")
 	public String postData(@RequestBody String query) {
-//		return ollamaGrpcClient.postData(query);
-		return null;
+		return ollamaGrpcClient.postData(query);
 	}
 }
