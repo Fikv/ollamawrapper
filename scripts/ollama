@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+trap "exit 128" INT
+
+declare -r original_pwd="$(pwd)"
+
+SOURCE="${BASH_SOURCE[0]}"
+
+while [[ -h "${SOURCE}" ]] ; do
+    DIR="$(cd -P "$(dirname "${SOURCE}")" >/dev/null 2>&1 && pwd)"
+    SOURCE="$(readlink "${SOURCE}")"
+
+    [[ "${SOURCE}" != /* ]] && SOURCE="${DIR}/${SOURCE}"
+done
+
+SCRIPT_DIR="$(cd -P "$(dirname "${SOURCE}")" >/dev/null 2>&1 && pwd)"
+
+declare -r repo_dir="$(realpath "${SCRIPT_DIR}/..")"
+declare -r cache_dir="${repo_dir}/.cache"
+declare -r ollama_bin_path="${cache_dir}/ollama"
+
+declare OLLAMA_VERSION
+: "${OLLAMA_VERSION:=0.3.12}"
+
+declare -r OLLAMA_REL="https://github.com/ollama/ollama/releases/download"
+declare -r OLLAMA_TAR="ollama-linux-amd64.tgz"
+declare -r OLLAMA_SRC="${OLLAMA_REL}/v${OLLAMA_VERSION}/${OLLAMA_TAR}"
+
+mkdir -p "${cache_dir}"
+
+if [[ -f "${ollama_bin_path}" ]] ; then
+    :
+else
+    cd "${cache_dir}"
+
+    echo " OLLama executable was not found, downloading it now."
+    echo " OLLama target version is: ${OLLAMA_VERSION}"
+
+    curl -f -L "${OLLAMA_SRC}" -o "${OLLAMA_TAR}"
+    tar xf "${OLLAMA_TAR}"
+    ln -s ./bin/ollama ollama
+
+    rm "${OLLAMA_TAR}"
+fi
+
+cd "${original_pwd}"
+
+exec "${ollama_bin_path}" "${@}"
