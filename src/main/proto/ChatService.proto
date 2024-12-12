@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package com.wsiz.grpc;
+
+service ChatService {
+    rpc generate(ChatRequest) returns (ChatResponse);
+    rpc generateStream(ChatRequest) returns (stream ChatResponse);
+}
+
+message ChatRequest {
+    string message = 1;
+}
+
+message ChatResponse {
+    string generation = 1;
+}
