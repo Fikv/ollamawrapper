@@ -68,7 +68,7 @@
         <dependency>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-core</artifactId>
-        <version>4.23.2</version> <!-- Upewnij się, że wersja jest aktualna -->
+        <version>4.23.2</version>
     </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -146,17 +146,6 @@
 <!--            <optional>true</optional>-->
 <!--        </dependency>-->
 
-<!--        SQLite-->
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-community-dialects</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.xerial</groupId>
-            <artifactId>sqlite-jdbc</artifactId>
-            <version>3.42.0.0</version>
-        </dependency>
-<!--        SQLite end-->
     </dependencies>
     <dependencyManagement>
         <dependencies>
