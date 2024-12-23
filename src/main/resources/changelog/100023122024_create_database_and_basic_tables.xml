@@ -23,7 +23,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="INTEGER">
-                <constraints nullable="false" foreignKeyName="fk_user_user_id" references="user(user_id)"/>
+                <constraints nullable="false" foreignKeyName="fk_user_user_id" references="user(id)"/>
             </column>
             <column name="topic" type="VARCHAR(100)">
                 <constraints nullable="false"/>
@@ -38,7 +38,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="conversation_id" type="INTEGER">
-                <constraints nullable="false" foreignKeyName="fk_conversation_conversation_id" references="conversation(conversation_id)"/>
+                <constraints nullable="false" foreignKeyName="fk_conversation_conversation_id" references="conversation(id)"/>
             </column>
             <column name="question" type="VARCHAR(500)">
                 <constraints nullable="false"/>
