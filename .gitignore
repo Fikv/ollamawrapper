@@ -32,3 +32,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Node.js ###
+node_modules/
+
+### Angular ###
+**/*.d.ts
+
+# Ignore cache created with the Angular CLI.
+.angular/
