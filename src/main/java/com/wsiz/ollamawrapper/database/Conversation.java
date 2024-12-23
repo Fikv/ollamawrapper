@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -26,7 +27,9 @@ public class Conversation {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@NotNull
 	private String topic;
 
+	@NotNull
 	private String model;
 }
