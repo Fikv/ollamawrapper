@@ -23,6 +23,7 @@ public class Conversation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;

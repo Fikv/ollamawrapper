@@ -22,6 +22,7 @@ public class Prompt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "conversation_id")
     private Conversation conversation;
