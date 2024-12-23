@@ -38,5 +38,6 @@ node_modules/
 
 ### Angular ###
 **/*.d.ts
-/.angular/files/
-/.angular/compilation/
+
+# Ignore cache created with the Angular CLI.
+.angular/
