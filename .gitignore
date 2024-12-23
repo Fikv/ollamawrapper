@@ -32,3 +32,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Node.js ###
+node_modules/
+
+### Angular ###
+**/*.d.ts
+/.angular/files/
+/.angular/compilation/
