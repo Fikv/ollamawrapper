@@ -15,20 +15,18 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "prompt")
-public class Prompt {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "conversation")
+public class Conversation {
 
-    @ManyToOne
-    @JoinColumn(name = "conversation_id")
-    private Conversation conversation;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String question;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
-    private String answer;
+	private String topic;
 
-    @CreatedDate
-    private LocalDateTime createdDate;
+	private String model;
 }
