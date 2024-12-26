@@ -1,0 +1,83 @@
+
+.loginSide {
+    height: 100%;
+    width: 80%;
+    background-color: #09081B;
+    flex: 5;
+}
+
+.singInSide {
+    position: relative;
+    height: 100%;
+    width: 20%;
+    margin-left: auto;
+    margin-right: 0;
+    background-color: #101010;
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+.newDiv {
+    position: absolute;
+    top: 30%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+@media screen and (min-height: 1081px) {
+    .new {
+        font-size: 32px;
+        font-family: 'Montserrat', sans-serif;
+        color: #B6B5B3;
+    }
+}
+
+@media screen and (max-height: 1080px) {
+    .new {
+        font-size: 28px;
+        font-family: 'Montserrat', sans-serif;
+        color: #B6B5B3;
+    }
+}
+
+.register {
+    position: absolute;
+    display: flex;
+    width: 75%;
+    top: 35%;
+    left: 62.5%;
+    transform: translate(-50%, -50%);
+
+}
+
+@media screen and (min-height: 1081px) {
+    .registerP {
+        font-size: 24px;
+        font-family: 'Montserrat', sans-serif;
+        color: #B6B5B3;
+    }
+}
+
+@media screen and (max-height: 1080px) {
+    .registerP {
+        font-size: 20px;
+        font-family: 'Montserrat', sans-serif;
+        color: #B6B5B3;
+    }
+}
+
+:host {
+    background: #101010;
+    color: #fff;
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
