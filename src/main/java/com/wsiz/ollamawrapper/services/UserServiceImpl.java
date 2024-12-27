@@ -26,7 +26,7 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 		// Check if the username is already taken
 		if (userRepository.existsByLogin(request.getUsername())) {
 			responseObserver.onNext(UserServiceOuterClass.RegisterResponse.newBuilder()
-					.setMessage("Username already in use.")
+					.setMessage("Username or email already in use.")
 					.setSuccess(false)
 					.build());
 			responseObserver.onCompleted();
