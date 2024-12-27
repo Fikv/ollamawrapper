@@ -4,41 +4,58 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wsiz.grpc.AuthServiceGrpc;
 import com.wsiz.grpc.AuthServiceOuterClass;
+import com.wsiz.ollamawrapper.database.User;
+import com.wsiz.ollamawrapper.repository.UserRepository;
 import com.wsiz.ollamawrapper.security.JwtService;
 
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
 
-
 @GrpcService
 @RequiredArgsConstructor
 public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
 
 	@Autowired
-	private AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager;
 
 	@Autowired
 	private JwtService jwtService;
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public void login(AuthServiceOuterClass.LoginRequest request, StreamObserver<AuthServiceOuterClass.AuthResponse> responseObserver) {
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-		);
+		// Check user credentials
+		var user = userRepository.findByLogin(request.getUsername())
+				.orElse(null);
 
-		var accessToken = jwtService.generateToken(authentication.getName());
-		var refreshToken = jwtService.generateRefreshToken(authentication.getName());
+		if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+			responseObserver.onNext(AuthServiceOuterClass.AuthResponse.newBuilder()
+					.setAccessToken(null)
+					.setRefreshToken(null)
+					.setMessage("Invalid username or password.")
+					.setSuccess(false)
+					.build());
+			responseObserver.onCompleted();
+			return;
+		}
 
-		var response = AuthServiceOuterClass.AuthResponse.newBuilder()
+		// Generate tokens
+		var accessToken = jwtService.generateToken(user.getLogin());
+		var refreshToken = jwtService.generateRefreshToken(user.getLogin());
+
+		// Send response
+		responseObserver.onNext(AuthServiceOuterClass.AuthResponse.newBuilder()
 				.setAccessToken(accessToken)
 				.setRefreshToken(refreshToken)
-				.build();
-
-		responseObserver.onNext(response);
+				.setMessage("Login successful.")
+				.setSuccess(true)
+				.build());
 		responseObserver.onCompleted();
 	}
 

@@ -19,4 +19,6 @@ message RefreshRequest {
 message AuthResponse {
   string access_token = 1;
   string refresh_token = 2;
+  string message = 3;
+  bool success = 4;
 }
