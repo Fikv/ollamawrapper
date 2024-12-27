@@ -30,13 +30,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    top: 35%;
-    margin-left: 100px;
+    top: 32%;
+    margin-left: 80px;
 }
 
 .creditials input {
+    border-radius: 3%;
+    border-style: solid;
+    background-color: #d4cdcd;
     width: 300px;        
-    height: 40px;        
+    height: 20px;        
     font-size: 18px;     
     padding: 10px;       
     margin-bottom: 15px; 
@@ -107,30 +110,6 @@
     }
 }
 
-@media screen and (min-height: 1081px) {
-    .singInButton {
-        border: #09081B;
-        background-color: #B6B5B3;
-        display: flex;
-        margin-bottom: 35%;
-        width: 30%;
-        top: 40%;
-        height: 3%;
-    }
-}
-
-@media screen and (max-height: 1080px) {
-    .singInButton {
-        border: #09081B;
-        border-style: solid;
-        border-radius: 5%;
-        background-color: #B6B5B3;
-        display: flex;
-        margin-bottom: 35%;
-        width: 30%;
-        height: 3%;
-    }
-}
 
 /* 
 Button Style from Pranoy Sarkar (https://codepen.io/Pranoyy/pen/xovgYJ)
@@ -255,8 +234,65 @@ Copyright (c) 2024 Pranoy Sarkar
       transform:translateY(-100%);
     }
   }
-  
 
+
+.loginInButton  {
+  position: relative;
+  padding: 15px 85px;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  text-transform:uppercase;
+  text-decoration:none;
+  letter-spacing: 5px;
+  font-size:30px;
+  align-items: center;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  font-family: 'Montserrat', sans-serif; 
+  border: 2px solid #8292FF;
+  background: #1f2442;
+  color: #00c2cb;
+  cursor: pointer;
+  outline: none;
+  transition: 200ms;
+}
+i {
+  position: absolute;
+  color: transparent;
+  transition: 200ms;
+}
+.loginInButton:focus {
+  color: transparent;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 25px 25px;
+  border-left: 2px solid #8292FF;
+  animation: spin 2s 500ms forwards;
+}
+.loginInButton:focus i {
+  animation: check 300ms 2250ms forwards;
+}
+
+@keyframes spin {
+  80% {
+    border: 2px solid transparent;
+    border-left: 2px solid #00c2cb;
+  }
+  100% {
+    transform: rotate(720deg);
+    border: 2px solid #00c2cb;
+  }
+}
+
+@keyframes check {
+  to {
+    color: #00c2cb;
+  }
+}
 
 :host {
     background: #101010;
