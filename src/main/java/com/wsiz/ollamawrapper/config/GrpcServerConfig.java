@@ -17,4 +17,5 @@ public class GrpcServerConfig {
 							.addService(chatService)
 							.build();
 	}
+
 }
