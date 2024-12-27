@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in-component',
@@ -8,7 +9,8 @@ import { Component } from '@angular/core';
   styleUrl: './log-in-component.component.css'
 })
 export class LogInComponentComponent {
-  credentials = { username: '', password: ''}
-user: any;
-
+  constructor(private router: Router) {}
+  navigateToChat() {
+    this.router.navigate(['/chat'])
+  }
 }

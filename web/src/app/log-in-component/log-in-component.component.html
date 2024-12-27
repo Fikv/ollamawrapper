@@ -1,35 +1,27 @@
-<!DOCTYPE html>
-
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-</head>
-
-<body>
-    <div class="loginSide">
-        <img src="assets/logo-wsiz.png" alt="logo" />
-        <p class="loginP">Zaloguj się do swojego konta</p>
-        <div class="creditials">
-            <input class="login" placeholder="Login">
-            <input class="password" placeholder="Hasło">
-            <button class="loginInButton">
-                ZALOGUJ
-                <i class="fa-solid fa-check"></i>
-              </button>
-        </div>
+<div class="loginSide">
+    <img src="assets/logo-wsiz.png" alt="logo" />
+    <p class="loginP">Zaloguj się do swojego konta</p>
+    <div class="creditials">
+        <input class="login" placeholder="Login">
+        <input type="password" class="password" placeholder="Hasło">
+        <button (click)="navigateToChat()" class="loginInButton">
+            ZALOGUJ
+            <i class="fa-solid fa-check"></i>
+        </button>
     </div>
+</div>
 
-    <div class="singInSide">
-        <div class="newDiv">
-            <p class="new">Nowy?</p>
-        </div>
-        <div class="register">
-            <p class="registerP">Zarejestruj się i synchronizuj</p>
-        </div>
-        <a class = "signInButton">
-            <span></span>
-             <span></span>
-             <span></span>
-             <span></span>
-            Dołącz</a>
+<div class="singInSide">
+    <div class="newDiv">
+        <p class="new">Nowy?</p>
     </div>
-</body>
+    <div class="register">
+        <p class="registerP">Zarejestruj się i synchronizuj</p>
+    </div>
+    <a class="signInButton">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Dołącz</a>
+</div>
