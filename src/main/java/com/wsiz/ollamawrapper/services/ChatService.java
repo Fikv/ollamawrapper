@@ -20,16 +20,15 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
 	@Override
 	public void generate(ChatServiceOuterClass.ChatRequest request, StreamObserver<ChatServiceOuterClass.ChatResponse> responseObserver) {
 		try {
-			String inputMessage = request.getMessage();
+			var inputMessage = request.getMessage();
 			if (inputMessage == null || inputMessage.trim().isEmpty()) {
 				responseObserver.onError(new IllegalArgumentException("Message cannot be null or empty"));
 				return;
 			}
 
-			Map<String, String> respMap = Map.of("generation", this.ollamaChatModel.call(inputMessage));
+			var respMap = Map.of("generation", this.ollamaChatModel.call(inputMessage));
 
-			ChatServiceOuterClass.ChatResponse response = ChatServiceOuterClass.ChatResponse
-					.newBuilder()
+			var response = ChatServiceOuterClass.ChatResponse.newBuilder()
 					.setGeneration(respMap.get("generation"))
 					.build();
 
@@ -42,17 +41,16 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
 
 	@Override
 	public void generateStream(ChatServiceOuterClass.ChatRequest request,
-			StreamObserver<ChatServiceOuterClass.ChatResponse> responseObserver) {
+							   StreamObserver<ChatServiceOuterClass.ChatResponse> responseObserver) {
 		try {
-			String inputMessage = request.getMessage();
+			var inputMessage = request.getMessage();
 			if (inputMessage == null || inputMessage.trim().isEmpty()) {
 				responseObserver.onError(new IllegalArgumentException("Message cannot be null or empty"));
 				return;
 			}
 
 			ollamaChatModel.stream(inputMessage).doOnTerminate(() -> responseObserver.onCompleted()).subscribe(partialResponse -> {
-				ChatServiceOuterClass.ChatResponse response = ChatServiceOuterClass.ChatResponse
-						.newBuilder()
+				var response = ChatServiceOuterClass.ChatResponse.newBuilder()
 						.setGeneration(partialResponse)
 						.build();
 				responseObserver.onNext(response);
