@@ -1,5 +1,6 @@
 package com.wsiz.ollamawrapper.services;
 
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wsiz.grpc.UserServiceGrpc;
@@ -9,6 +10,8 @@ import com.wsiz.ollamawrapper.repository.UserRepository;
 
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
+
+import java.util.List;
 
 @GrpcService
 public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
@@ -46,6 +49,27 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 				.setSuccess(true)
 				.build());
 		responseObserver.onCompleted();
+	}
+
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+
+	public User getUserById(Long id) {
+		return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+	}
+
+	@Transactional
+	public User createUser(User user) {
+		return userRepository.save(user);
+	}
+
+	@Transactional
+	public void deleteUser(Long id) {
+		if (!userRepository.existsById(id)) {
+			throw new RuntimeException("User not found with id: " + id);
+		}
+		userRepository.deleteById(id);
 	}
 }
 
