@@ -3,9 +3,11 @@ package com.wsiz.ollamawrapper.services;
 import com.wsiz.ollamawrapper.database.Conversation;
 import com.wsiz.ollamawrapper.repository.ConversationRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ConversationService {
     private final ConversationRepository conversationRepository;
 
