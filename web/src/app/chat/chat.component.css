@@ -65,7 +65,9 @@
 }
 
 .chatInput {
-    position: fixed;
+    flex-grow: 1; 
+    resize: none; 
+    min-height: 50px;
     bottom: 0;
     margin-bottom: 40px;
     height: 100px;
@@ -80,6 +82,44 @@
     text-align: top;
     text-justify: auto;
     resize: none;
+    align-items: right;
+    justify-content: right;
+}
+
+
+.arrowImg {
+    height: 16px; 
+    width: 16px;
+}
+
+.inputContainer {
+    margin-bottom: 40px;
+    position: fixed;
+    bottom: 0;
+    width: 80%;
+    display: flex;
+    align-items: center; 
+    gap: 5px; 
+}
+
+.send {
+    position: static;
+    border-radius: 5%;
+    bottom: 0;
+    border-color: #5f5f5f;
+    margin-bottom: 40px;
+    width: 2%;
+    height: 108px;
+    background-color: #B6B5B3;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.arrowImg {
+    height: 25px;
+    width: 25px;
+    margin-left: -20%;
 }
 
 :host {
