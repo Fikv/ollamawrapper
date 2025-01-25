@@ -51,25 +51,75 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 		responseObserver.onCompleted();
 	}
 
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
-	}
+	@Override
+	public void getAllUsers(UserServiceOuterClass.EmptyRequest request, StreamObserver<UserServiceOuterClass.UserListResponse> responseObserver) {
+		List<User> users = userRepository.findAll();
+		UserServiceOuterClass.UserListResponse.Builder responseBuilder = UserServiceOuterClass.UserListResponse.newBuilder();
 
-	public User getUserById(Long id) {
-		return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-	}
-
-	@Transactional
-	public User createUser(User user) {
-		return userRepository.save(user);
-	}
-
-	@Transactional
-	public void deleteUser(Long id) {
-		if (!userRepository.existsById(id)) {
-			throw new RuntimeException("User not found with id: " + id);
+		for (User user : users) {
+			responseBuilder.addUsers(UserServiceOuterClass.User.newBuilder()
+					.setId(user.getId().toString())
+					.setUsername(user.getLogin())
+					.build());
 		}
-		userRepository.deleteById(id);
+
+		responseObserver.onNext(responseBuilder.build());
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void getUserById(UserServiceOuterClass.UserIdRequest request, StreamObserver<UserServiceOuterClass.UserResponse> responseObserver) {
+		User user = userRepository.findById(Long.valueOf(request.getId()))
+				.orElseThrow(() -> new RuntimeException("User not found"));
+
+		UserServiceOuterClass.UserResponse response = UserServiceOuterClass.UserResponse.newBuilder()
+				.setId(user.getId().toString())
+				.setUsername(user.getLogin())
+				.setSuccess(true)
+				.build();
+
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void createUser(UserServiceOuterClass.CreateUserRequest request, StreamObserver<UserServiceOuterClass.UserResponse> responseObserver) {
+		User user = new User();
+		user.setLogin(request.getUsername());
+		user.setPassword(passwordEncoder.encode(request.getPassword()));
+		user = userRepository.save(user);
+
+		UserServiceOuterClass.UserResponse response = UserServiceOuterClass.UserResponse.newBuilder()
+				.setId(user.getId().toString())
+				.setUsername(user.getLogin())
+				.setMessage("User created successfully!")
+				.setSuccess(true)
+				.build();
+
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void deleteUser(UserServiceOuterClass.UserIdRequest request, StreamObserver<UserServiceOuterClass.DeleteResponse> responseObserver) {
+		Long userId = Long.valueOf(request.getId());
+
+		if (!userRepository.existsById(userId)) {
+			responseObserver.onNext(UserServiceOuterClass.DeleteResponse.newBuilder()
+					.setMessage("User not found")
+					.setSuccess(false)
+					.build());
+			responseObserver.onCompleted();
+			return;
+		}
+
+		userRepository.deleteById(userId);
+
+		responseObserver.onNext(UserServiceOuterClass.DeleteResponse.newBuilder()
+				.setMessage("User deleted successfully")
+				.setSuccess(true)
+				.build());
+		responseObserver.onCompleted();
 	}
 }
 
