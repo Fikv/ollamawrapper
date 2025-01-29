@@ -1,4 +1,4 @@
-package com.wsiz.ollamawrapper;
+package com.wsiz.ollamawrapper.ollamaexe;
 
 import java.io.File;
 import java.util.Optional;
