@@ -34,6 +34,7 @@ build/
 .vscode/
 
 ### Node.js ###
+dist/
 node_modules/
 
 ### Angular ###
