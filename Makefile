@@ -2,8 +2,9 @@ PWD                     := $(shell pwd)
 JAVA-TARGET-DIR         := $(PWD)/target
 
 MAKE                    ?= make
-MAVEN                   := $(PWD)/mvnw
+NPM                     := npm
 RM                      := rm -f -r
+MAVEN                   := $(PWD)/mvnw
 
 .PHONY: all
 all:
@@ -19,6 +20,7 @@ clean:
 .PHONY: build
 build:
 	$(MAVEN) compile
+	cd $(PWD)/web && $(NPM) install && $(NPM) run build
 
 .PHONY: test
 test:
