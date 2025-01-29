@@ -1,0 +1,303 @@
+.loginSide {
+    height: 100%;
+    width: 80%;
+    background-color: #09081b;
+    flex: 5;
+}
+
+.loginSide img {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20px;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+.loginP {
+    position: absolute;
+    top: 15%;
+    margin-left: 70px;
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    color: #8292FF;
+}
+
+.creditials {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 32%;
+    margin-left: 80px;
+}
+
+.creditials input {
+    border-radius: 3%;
+    border-style: solid;
+    background-color: #d4cdcd;
+    width: 300px;
+    height: 20px;
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.singInSide {
+    position: relative;
+    height: 100%;
+    width: 20%;
+    margin-left: auto;
+    margin-right: 0;
+    background-color: #101010;
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.newDiv {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+@media screen and (min-height: 1081px) {
+    .new {
+        font-size: 32px;
+        font-family: 'Montserrat', sans-serif;
+        color: #B6B5B3;
+    }
+}
+
+@media screen and (max-height: 1080px) {
+    .new {
+        font-size: 28px;
+        font-family: 'Montserrat', sans-serif;
+        color: #B6B5B3;
+    }
+}
+
+.register {
+    position: absolute;
+    display: flex;
+    width: 75%;
+    top: 35%;
+    left: 62.5%;
+    transform: translate(-50%, -50%);
+
+}
+
+@media screen and (min-height: 1081px) {
+    .registerP {
+        font-size: 24px;
+        font-family: 'Montserrat', sans-serif;
+        color: #B6B5B3;
+    }
+}
+
+@media screen and (max-height: 1080px) {
+    .registerP {
+        font-size: 20px;
+        font-family: 'Montserrat', sans-serif;
+        color: #B6B5B3;
+    }
+}
+
+
+/* 
+Button Style from Pranoy Sarkar (https://codepen.io/Pranoyy/pen/xovgYJ)
+Licensed under The MIT License (MIT)
+Copyright (c) 2024 Pranoy Sarkar
+*/
+.signInButton {
+    position: absolute;
+    left: 50%;
+    margin-bottom: 8%;
+    transform: translate(-50%, -50%);
+    padding: 30px 60px;
+    color: #B6B5B3;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 5px;
+    font-size: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
+    overflow: hidden;
+}
+
+.signInButton::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: 50%;
+    background: rgba(255, 255, 255, 0.05);
+
+}
+
+.signInButton span:nth-child(1) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #09081b, #B6B5B3);
+    animation: animate1 2s linear infinite;
+    animation-delay: 1s;
+
+}
+
+@keyframes animate1 {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.signInButton span:nth-child(2) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, #09081b, #aab5c4);
+    animation: animate2 2s linear infinite;
+    animation-delay: 2s;
+}
+
+@keyframes animate2 {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+.signInButton span:nth-child(3) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to left, #09081b, #B6B5B3);
+    animation: animate3 2s linear infinite;
+    animation-delay: 1s;
+
+}
+
+@keyframes animate3 {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.signInButton span:nth-child(4) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to top, #09081b, #B6B5B3);
+    animation: animate4 2s linear infinite;
+    animation-delay: 2s;
+
+}
+
+@keyframes animate4 {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+.loginInButton {
+    position: relative;
+    padding: 15px 85px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 5px;
+    font-size: 30px;
+    align-items: center;
+    font-size: 1.5rem;
+    border-radius: 15px;
+    font-family: 'Montserrat', sans-serif;
+    border: 2px solid #8292FF;
+    background: #1f2442;
+    color: #8292FF;
+    cursor: pointer;
+    outline: none;
+    transition: 200ms;
+}
+
+i {
+    position: absolute;
+    color: transparent;
+    transition: 200ms;
+}
+
+.loginInButton:focus {
+    color: transparent;
+    outline: none;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 25px 25px;
+    border-left: 2px solid #8292FF;
+    animation: spin 2s 500ms forwards;
+}
+
+.loginInButton:focus i {
+    animation: check 300ms 2250ms forwards;
+}
+
+@keyframes spin {
+    80% {
+        border: 2px solid transparent;
+        border-left: 2px solid #00c2cb;
+    }
+
+    100% {
+        transform: rotate(720deg);
+        border: 2px solid #00c2cb;
+    }
+}
+
+@keyframes check {
+    to {
+        color: #00c2cb;
+    }
+}
+
+:host {
+    background: #101010;
+    top: 0;
+    color: #fff;
+    position: fixed;
+    display: flex;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
