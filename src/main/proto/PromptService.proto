@@ -1,11 +1,12 @@
 syntax = "proto3";
 
+package com.wsiz.grpc;
 
 service PromptService {
-    rpc GetAllPrompts(EmptyRequest) returns (PromptListResponse);
+    rpc GetAllPrompts(EmptyRequestPrompt) returns (PromptListResponse);
     rpc GetPromptById(PromptIdRequest) returns (PromptResponse);
     rpc CreatePrompt(CreatePromptRequest) returns (PromptResponse);
-    rpc DeletePrompt(PromptIdRequest) returns (DeleteResponse);
+    rpc DeletePrompt(PromptIdRequest) returns (DeleteResponsePrompt);
 }
 
 message Prompt {
@@ -16,7 +17,7 @@ message Prompt {
     string createdDate = 5;
 }
 
-message EmptyRequest {}
+message EmptyRequestPrompt {}
 
 message PromptIdRequest {
     int64 id = 1;
@@ -34,7 +35,7 @@ message CreatePromptRequest {
     string answer = 3;
 }
 
-message DeleteResponse {
+message DeleteResponsePrompt {
     bool success = 1;
     string message = 2;
 }

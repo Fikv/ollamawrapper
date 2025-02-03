@@ -1,4 +1,4 @@
-package com.wsiz.ollamawrapper.database;
+package com.wsiz.ollamawrapper.entity;
 
 import java.time.LocalDateTime;
 

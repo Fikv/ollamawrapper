@@ -1,28 +1,25 @@
-package com.wsiz.ollamawrapper.services;
+package com.wsiz.ollamawrapper.service;
 
-import jakarta.transaction.Transactional;
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wsiz.grpc.UserServiceGrpc;
 import com.wsiz.grpc.UserServiceOuterClass;
-import com.wsiz.ollamawrapper.database.User;
+import com.wsiz.ollamawrapper.entity.User;
+import com.wsiz.ollamawrapper.exception.ResourceNotFoundException;
 import com.wsiz.ollamawrapper.repository.UserRepository;
 
 import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
 
-import java.util.List;
-
 @GrpcService
+@RequiredArgsConstructor
 public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 
-	private final UserRepository userRepository; // Assume this is a JPA repository for saving users
+	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
-
-	public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-		this.userRepository = userRepository;
-		this.passwordEncoder = passwordEncoder;
-	}
 
 	@Override
 	public void register(UserServiceOuterClass.RegisterRequest request, StreamObserver<UserServiceOuterClass.RegisterResponse> responseObserver) {
@@ -120,6 +117,11 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 				.setSuccess(true)
 				.build());
 		responseObserver.onCompleted();
+	}
+
+	public User findById(long userId) {
+		return userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found."));
 	}
 }
 

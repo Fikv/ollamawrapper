@@ -1,14 +1,11 @@
-package com.wsiz.ollamawrapper.services;
+package com.wsiz.ollamawrapper.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wsiz.grpc.AuthServiceGrpc;
 import com.wsiz.grpc.AuthServiceOuterClass;
-import com.wsiz.ollamawrapper.database.User;
 import com.wsiz.ollamawrapper.repository.UserRepository;
 import com.wsiz.ollamawrapper.security.JwtService;
 

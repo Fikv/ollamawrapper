@@ -1,30 +1,28 @@
-package com.wsiz.ollamawrapper.services;
-
-import com.wsiz.grpc.PromptServiceGrpc;
-import com.wsiz.grpc.PromptServiceOuterClass;
-import com.wsiz.ollamawrapper.database.Conversation;
-import com.wsiz.ollamawrapper.database.Prompt;
-import com.wsiz.ollamawrapper.repository.PromptRepository;
-
-import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.server.service.GrpcService;
+package com.wsiz.ollamawrapper.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import com.wsiz.grpc.PromptServiceGrpc;
+import com.wsiz.grpc.PromptServiceOuterClass;
+import com.wsiz.ollamawrapper.entity.Prompt;
+import com.wsiz.ollamawrapper.repository.PromptRepository;
+
+import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
+import net.devh.boot.grpc.server.service.GrpcService;
+
 @GrpcService
+@RequiredArgsConstructor
 public class PromptService extends PromptServiceGrpc.PromptServiceImplBase {
 
     private final PromptRepository promptRepository;
-
-    public PromptService(PromptRepository promptRepository) {
-        this.promptRepository = promptRepository;
-    }
+    private final ConversationService conversationService;
 
     @Override
-    public void getAllPrompts(PromptServiceOuterClass.EmptyRequest request, StreamObserver<PromptServiceOuterClass.PromptListResponse> responseObserver) {
+    public void getAllPrompts(PromptServiceOuterClass.EmptyRequestPrompt request, StreamObserver<PromptServiceOuterClass.PromptListResponse> responseObserver) {
         List<Prompt> prompts = promptRepository.findAll();
         PromptServiceOuterClass.PromptListResponse.Builder responseBuilder = PromptServiceOuterClass.PromptListResponse.newBuilder();
 
@@ -59,7 +57,7 @@ public class PromptService extends PromptServiceGrpc.PromptServiceImplBase {
     @Override
     public void createPrompt(PromptServiceOuterClass.CreatePromptRequest request, StreamObserver<PromptServiceOuterClass.PromptResponse> responseObserver) {
         Prompt prompt = new Prompt();
-        prompt.setConversation(new Conversation(request.getConversationId())); // Zakładamy istnienie Conversation
+        prompt.setConversation(conversationService.findById(request.getConversationId()));
         prompt.setQuestion(request.getQuestion());
         prompt.setAnswer(request.getAnswer());
         prompt.setCreatedDate(LocalDateTime.now());
@@ -75,9 +73,9 @@ public class PromptService extends PromptServiceGrpc.PromptServiceImplBase {
     }
 
     @Override
-    public void deletePrompt(PromptServiceOuterClass.PromptIdRequest request, StreamObserver<PromptServiceOuterClass.DeleteResponse> responseObserver) {
+    public void deletePrompt(PromptServiceOuterClass.PromptIdRequest request, StreamObserver<PromptServiceOuterClass.DeleteResponsePrompt> responseObserver) {
         if (!promptRepository.existsById(request.getId())) {
-            responseObserver.onNext(PromptServiceOuterClass.DeleteResponse.newBuilder()
+            responseObserver.onNext(PromptServiceOuterClass.DeleteResponsePrompt.newBuilder()
                     .setMessage("Prompt not found")
                     .setSuccess(false)
                     .build());
@@ -87,7 +85,7 @@ public class PromptService extends PromptServiceGrpc.PromptServiceImplBase {
 
         promptRepository.deleteById(request.getId());
 
-        responseObserver.onNext(PromptServiceOuterClass.DeleteResponse.newBuilder()
+        responseObserver.onNext(PromptServiceOuterClass.DeleteResponsePrompt.newBuilder()
                 .setMessage("Prompt deleted successfully")
                 .setSuccess(true)
                 .build());

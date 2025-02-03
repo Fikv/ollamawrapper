@@ -1,26 +1,24 @@
-package com.wsiz.ollamawrapper.services;
-
-import com.wsiz.grpc.ConversationServiceGrpc;
-import com.wsiz.grpc.ConversationServiceOuterClass;
-import com.wsiz.ollamawrapper.database.Conversation;
-import com.wsiz.ollamawrapper.repository.ConversationRepository;
-
-import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.server.service.GrpcService;
-
-import org.springframework.stereotype.Service;
+package com.wsiz.ollamawrapper.service;
 
 import java.util.List;
 import java.util.Optional;
 
+import com.wsiz.grpc.ConversationServiceGrpc;
+import com.wsiz.grpc.ConversationServiceOuterClass;
+import com.wsiz.ollamawrapper.entity.Conversation;
+import com.wsiz.ollamawrapper.exception.ResourceNotFoundException;
+import com.wsiz.ollamawrapper.repository.ConversationRepository;
+
+import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
+import net.devh.boot.grpc.server.service.GrpcService;
+
 @GrpcService
+@RequiredArgsConstructor
 public class ConversationService extends ConversationServiceGrpc.ConversationServiceImplBase {
 
     private final ConversationRepository conversationRepository;
-
-    public ConversationService(ConversationRepository conversationRepository) {
-        this.conversationRepository = conversationRepository;
-    }
+    private final UserServiceImpl userService;
 
     @Override
     public void getAllConversations(ConversationServiceOuterClass.Empty request, StreamObserver<ConversationServiceOuterClass.ConversationListResponse> responseObserver) {
@@ -61,8 +59,7 @@ public class ConversationService extends ConversationServiceGrpc.ConversationSer
         conversation.setTopic(request.getTopic());
         conversation.setModel(request.getModel());
 
-        // Zakładamy, że użytkownik jest już znany (np. można znaleźć użytkownika na podstawie userId)
-        conversation.setUser(new User(request.getUserId()));  // Zakładamy istnienie klasy User
+        conversation.setUser((userService.findById(request.getUserId())));
 
         conversation = conversationRepository.save(conversation);
 
@@ -101,5 +98,10 @@ public class ConversationService extends ConversationServiceGrpc.ConversationSer
                 .setTopic(conversation.getTopic())
                 .setModel(conversation.getModel())
                 .build();
+    }
+
+    public Conversation findById(long conversationId) {
+        return conversationRepository.findById(conversationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Conversation not found."));
     }
 }
