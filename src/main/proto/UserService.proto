@@ -1,9 +1,14 @@
 syntax = "proto3";
 
 package com.wsiz.grpc;
+import "PromptService.proto";
 
 service UserService {
   rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc GetAllUsers(EmptyRequest) returns (UserListResponse);
+  rpc GetUserById(UserIdRequest) returns (UserResponse);
+  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+  rpc DeleteUser(UserIdRequest) returns (DeleteResponse);
 }
 
 message RegisterRequest {
@@ -14,4 +19,36 @@ message RegisterRequest {
 message RegisterResponse {
   string message = 1;
   bool success = 2;
+}
+
+message EmptyRequest {}
+
+message UserListResponse {
+  repeated User users = 1;
+}
+
+message UserIdRequest {
+  string id = 1;
+}
+
+message UserResponse {
+  string id = 1;
+  string username = 2;
+  string message = 3;
+  bool success = 4;
+}
+
+message CreateUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message DeleteResponse {
+  string message = 1;
+  bool success = 2;
+}
+
+message User {
+  string id = 1;
+  string username = 2;
 }

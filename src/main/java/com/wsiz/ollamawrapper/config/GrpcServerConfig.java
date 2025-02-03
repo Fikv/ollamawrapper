@@ -3,7 +3,7 @@ package com.wsiz.ollamawrapper.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.wsiz.ollamawrapper.services.ChatService;
+import com.wsiz.ollamawrapper.service.ChatService;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;

@@ -1,15 +1,15 @@
-package com.wsiz.ollamawrapper.services;
-
-import io.grpc.stub.StreamObserver;
-import lombok.RequiredArgsConstructor;
-import net.devh.boot.grpc.server.service.GrpcService;
+package com.wsiz.ollamawrapper.service;
 
 import java.util.Map;
 
 import org.springframework.ai.ollama.OllamaChatModel;
 
-import com.wsiz.grpc.ChatServiceOuterClass;
 import com.wsiz.grpc.ChatServiceGrpc;
+import com.wsiz.grpc.ChatServiceOuterClass;
+
+import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
+import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService
 @RequiredArgsConstructor

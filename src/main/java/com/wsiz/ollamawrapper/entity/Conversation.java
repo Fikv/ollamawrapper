@@ -1,8 +1,4 @@
-package com.wsiz.ollamawrapper.database;
-
-import java.time.LocalDateTime;
-
-import org.springframework.data.annotation.CreatedDate;
+package com.wsiz.ollamawrapper.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
