@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="300000000000-1" author="pelck">
+        <dropTable tableName="prompt" cascadeConstraints="true"/>
+    </changeSet>
+
+    <changeSet id="300000000000-2" author="pelck">
+        <createTable tableName="prompt">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="conversation_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_conversation_conversation_id"
+                             references="conversation(id)"/>
+            </column>
+            <column name="question" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="answer" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="400000000000-1" author="pelck">
+        <dropTable tableName="prompt" cascadeConstraints="true"/>
+    </changeSet>
+
+    <changeSet id="400000000000-2" author="pelck">
+        <createTable tableName="prompt">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="conversation_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_conversation_conversation_id"
+                             references="conversation(id)"/>
+            </column>
+            <column name="question" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="answer" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

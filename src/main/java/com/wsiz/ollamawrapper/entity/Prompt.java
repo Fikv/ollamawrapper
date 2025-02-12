@@ -1,9 +1,5 @@
 package com.wsiz.ollamawrapper.entity;
 
-import java.time.LocalDateTime;
-
-import org.springframework.data.annotation.CreatedDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,7 +35,6 @@ public class Prompt {
     @NotNull
     private String answer;
 
-    @CreatedDate
     @NotNull
-    private LocalDateTime createdDate;
+    private long createdDate;
 }

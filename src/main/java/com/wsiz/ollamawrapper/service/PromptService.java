@@ -1,7 +1,9 @@
 package com.wsiz.ollamawrapper.service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,9 +62,9 @@ public class PromptService extends PromptServiceGrpc.PromptServiceImplBase {
         prompt.setConversation(conversationService.findById(request.getConversationId()));
         prompt.setQuestion(request.getQuestion());
         prompt.setAnswer(request.getAnswer());
-        prompt.setCreatedDate(LocalDateTime.now());
+        prompt.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()).getTime());
 
-        prompt = promptRepository.save(prompt);
+        promptRepository.save(prompt);
 
         responseObserver.onNext(PromptServiceOuterClass.PromptResponse.newBuilder()
                 .setPrompt(toProto(prompt))
@@ -93,12 +95,15 @@ public class PromptService extends PromptServiceGrpc.PromptServiceImplBase {
     }
 
     private PromptServiceOuterClass.Prompt toProto(Prompt prompt) {
+        var instant = Instant.ofEpochMilli(prompt.getCreatedDate());
+        var dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+
         return PromptServiceOuterClass.Prompt.newBuilder()
                 .setId(prompt.getId())
                 .setConversationId(prompt.getConversation().getId())
                 .setQuestion(prompt.getQuestion())
                 .setAnswer(prompt.getAnswer())
-                .setCreatedDate(prompt.getCreatedDate().format(DateTimeFormatter.ISO_DATE_TIME))
+                .setCreatedDate(String.valueOf(dateTime))
                 .build();
     }
 }
