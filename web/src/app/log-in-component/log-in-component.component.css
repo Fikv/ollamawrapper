@@ -301,3 +301,9 @@ i {
     width: 100vw;
     height: 100vh;
 }
+
+.mat-dialog-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
