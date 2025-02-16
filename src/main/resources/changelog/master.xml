@@ -6,4 +6,6 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <include file="/changelog/100023122024_create_database_and_basic_tables.xml"/>
+    <include file="/changelog/200000000000_update_created_date_type.xml"/>
+    <include file="/changelog/300000000000_drop_prompt_table.xml"/>
 </databaseChangeLog>

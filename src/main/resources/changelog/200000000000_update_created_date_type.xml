@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="200000000000-1" author="pelck">
+        <dropColumn tableName="prompt" columnName="created_date"/>
+    </changeSet>
+
+    <changeSet id="200000000000-2" author="pelck">
+        <renameColumn tableName="prompt" oldColumnName="created_date" newColumnName="unused_created_date"/>
+        <addColumn tableName="prompt">
+            <column name="created_date" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
